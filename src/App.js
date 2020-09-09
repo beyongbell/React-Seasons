@@ -5,21 +5,21 @@ import 'semantic-ui-css/semantic.min.css'
 class App extends Component {
   state = { lat: null, errorMessage: '' };
 
-  render() {
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({ lat: position.coords.latitude })
-      },
-      error => {
-        this.setState({ errorMessage: error.message })
-      }
+      position => this.setState({ lat: position.coords.latitude }),
+      error    => this.setState({ errorMessage: error.message })
     )
-    return (
-      <div className="App">
-        <h1> Latitude : { this.state.lat } </h1>
-        <h1> Error    : { this.state.errorMessage } </h1>
-      </div>
-    );
+  }
+
+  render() {
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div> Error : { this.state.errorMessage } </div>
+    }
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div> Latitude : { this.state.lat } </div>
+    }
+    return <div> Loading! </div>
   }
 }
 
