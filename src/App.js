@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import 'semantic-ui-css/semantic.min.css'
+import SeasonDisplay from './SeasonDisplay';
 
 class App extends Component {
   state = { lat: null, errorMessage: '' };
@@ -17,7 +17,7 @@ class App extends Component {
       return <div> Error : { this.state.errorMessage } </div>
     }
     if (!this.state.errorMessage && this.state.lat) {
-      return <div> Latitude : { this.state.lat } </div>
+      return <SeasonDisplay lat={ this.state.lat }/>
     }
     return <div> Loading! </div>
   }
